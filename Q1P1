@@ -1,0 +1,34 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(void){
+	int np=15, nc=15, nl=15;
+	int ***p, ***copia;
+	int i,j,k;
+	p=(int***)malloc(np*nc*nl*sizeof(int));
+	copia=(int***)malloc(np*nc*nl*sizeof(int));
+	for(k=1;k<=np;k++){
+		p[k]=(int**)malloc(nc*nl*sizeof(int));
+		for(j=1;j<=nc;j++){
+			p[k][j]=(int*)malloc(nl*sizeof(int));
+			for(i=1;i<=nl;i++){
+				p[k][j][i]=rand()%100;
+				printf("%i ", p[k][j][i]);
+			}
+			printf("\n");
+		}
+		printf("\n");
+	}
+	printf("\n");
+	memcpy(copia,p,np*nc*nl*sizeof(int));
+    printf("%i", copia[5][11][9]);
+	for(k=1;k<=np;k++){
+		for(j=1;j<=nc;j++){
+			free(p[k][j]);
+		}
+		free(p[k]);
+	}
+	free(p);
+	free(copia);
+	return 0;
+}
